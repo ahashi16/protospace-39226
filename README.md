@@ -2,51 +2,57 @@
 
 ## users テーブル
 
-| Column             | Type   | Options     |
+| カラム名            | 型      | バリデーション|
 | ------------------ | ------ | ----------- |
 | name               | string | null: false |
 | email              | string | null: false |
 | encrypted_password | string | null: false |
+| profile            | text   | null: false |
+| occupation         | text   | null: false |
+| position           | text   | null: false |
 
-### Association
+### アソシエーション
 
-- has_many :room_users
-- has_many :rooms, through: :room_users
-- has_many :messages
+- has_many :prototypes_users
+- has_many :prototypes, through: :room_users
+- has_many :comments
 
-## rooms テーブル
+## prototypes テーブル
 
-| Column | Type   | Options     |
-| ------ | ------ | ----------- |
-| name   | string | null: false |
+| カラム名      | 型          | バリデーション|
+| ------       | ------     | ----------- |
+| title        | string     | null: false |
+| catch-copy   | text       | null: false |
+| concept      | text       | null: false |
+| user         | references | null: false |
 
-### Association
+### アソシエーション
 
-- has_many :room_users
-- has_many :users, through: :room_users
-- has_many :messages
+- has_many :prototypes_users
+- has_many :users, through: :prototypes_users
+- has_many :comments
 
-## room_users テーブル
+## prototypes_users テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| user   | references | null: false, foreign_key: true |
-| room   | references | null: false, foreign_key: true |
+| カラム名     | 型         | バリデーション                   |
+| ------     | ---------- | ------------------------------ |
+| user       | references | null: false, foreign_key: true |
+| prototypes | references | null: false, foreign_key: true |
 
-### Association
+### アソシエーション
 
-- belongs_to :room
+- belongs_to :prototypes
 - belongs_to :user
 
-## messages テーブル
+## comments テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| content | string     |                                |
-| user    | references | null: false, foreign_key: true |
-| room    | references | null: false, foreign_key: true |
+| カラム名   | 型         | バリデーション                   |
+| -------  | ---------- | ------------------------------ |
+| content  | string     |                                |
+| prototype| references | null: false, foreign_key: true |
+| user     | references | null: false, foreign_key: true |
 
-### Association
+### アソシエーション
 
-- belongs_to :room
+- belongs_to :prototypes
 - belongs_to :user
