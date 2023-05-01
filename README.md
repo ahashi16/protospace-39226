@@ -13,8 +13,7 @@
 
 ### アソシエーション
 
-- has_many :prototypes_users
-- has_many :prototypes, through: :room_users
+- has_many :prototypes
 - has_many :comments
 
 ## prototypes テーブル
@@ -28,21 +27,8 @@
 
 ### アソシエーション
 
-- has_many :prototypes_users
-- has_many :users, through: :prototypes_users
 - has_many :comments
-
-## prototypes_users テーブル
-
-| カラム名     | 型         | バリデーション                   |
-| ------     | ---------- | ------------------------------ |
-| user       | references | null: false, foreign_key: true |
-| prototypes | references | null: false, foreign_key: true |
-
-### アソシエーション
-
-- belongs_to :prototypes
-- belongs_to :user
+- belongs :users
 
 ## comments テーブル
 
